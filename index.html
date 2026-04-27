@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jack Halloran</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0d1b2a;
+      --navy-mid: #162032;
+      --navy-light: #1e3050;
+      --accent: #4a7fa5;
+      --accent-bright: #5b9cc4;
+      --grey: #8a9ab0;
+      --grey-light: #c5cdd8;
+      --white: #f0f4f8;
+      --off-white: #e2e8f0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--navy);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.4rem 3.5rem;
+      background: rgba(13, 27, 42, 0.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(74, 127, 165, 0.18);
+    }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.45rem;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.6rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--grey-light);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.25s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent-bright);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(74,127,165,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74,127,165,0.07) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 70% at 60% 50%, black 30%, transparent 80%);
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: 15%; right: 8%;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,127,165,0.22) 0%, transparent 70%);
+      pointer-events: none;
+      animation: pulse 6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+
+    .hero-content {
+      max-width: 700px;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-bright);
+      margin-bottom: 1rem;
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent-bright);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--grey-light);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 0.9s 0.3s ease both;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 2rem;
+      background: var(--accent);
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      border-radius: 4px;
+      transition: background 0.25s, transform 0.2s;
+      animation: fadeUp 0.9s 0.4s ease both;
+    }
+
+    .hero-cta:hover {
+      background: var(--accent-bright);
+      transform: translateY(-2px);
+    }
+
+    .hero-cta svg { width: 16px; height: 16px; }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 6rem 3.5rem; max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-bright);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 2.5rem;
+    }
+
+    .divider {
+      width: 48px; height: 2px;
+      background: var(--accent);
+      margin-bottom: 2.5rem;
+      border-radius: 2px;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      border-top: 1px solid rgba(74,127,165,0.15);
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-sidebar {
+      position: sticky;
+      top: 6rem;
+    }
+
+    .about-badge {
+      display: inline-block;
+      background: rgba(74,127,165,0.15);
+      border: 1px solid rgba(74,127,165,0.3);
+      color: var(--accent-bright);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 0.4rem 0.9rem;
+      border-radius: 50px;
+      margin-top: 1.5rem;
+    }
+
+    .about-text {
+      font-size: 1.05rem;
+      color: var(--grey-light);
+      line-height: 1.9;
+    }
+
+    .about-text p + p { margin-top: 1.2rem; }
+
+    .about-text strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    .goal-card {
+      margin-top: 2.5rem;
+      padding: 1.4rem 1.6rem;
+      background: rgba(30, 48, 80, 0.5);
+      border: 1px solid rgba(74,127,165,0.25);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+    }
+
+    .goal-card-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-bright);
+      margin-bottom: 0.5rem;
+    }
+
+    .goal-card p {
+      font-size: 0.95rem;
+      color: var(--grey-light);
+      line-height: 1.7;
+    }
+
+    /* ── INTERESTS ── */
+    #interests {
+      border-top: 1px solid rgba(74,127,165,0.15);
+    }
+
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    .interest-card {
+      padding: 1.8rem 1.5rem;
+      background: rgba(22, 32, 50, 0.7);
+      border: 1px solid rgba(74,127,165,0.18);
+      border-radius: 8px;
+      transition: transform 0.25s, border-color 0.25s, background 0.25s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .interest-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(74,127,165,0.1) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .interest-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(74,127,165,0.5);
+      background: rgba(30,48,80,0.7);
+    }
+
+    .interest-card:hover::before { opacity: 1; }
+
+    .interest-icon {
+      font-size: 2rem;
+      margin-bottom: 0.9rem;
+      display: block;
+    }
+
+    .interest-name {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+
+    .interest-desc {
+      font-size: 0.82rem;
+      color: var(--grey);
+      line-height: 1.5;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(74,127,165,0.15);
+      padding: 2.5rem 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--grey);
+    }
+
+    .footer-note {
+      font-size: 0.82rem;
+      color: var(--grey);
+    }
+
+    /* ── SCROLL ANIMATION ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { gap: 1.4rem; }
+      section { padding: 4rem 1.5rem; }
+      #hero { padding: 0 1.5rem; }
+      .about-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-sidebar { position: static; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">J·H</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#interests">Interests</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" style="max-width:100%; padding-top:0; padding-bottom:0;">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Personal Portfolio</p>
+      <h1 class="hero-name">Jack<br><em>Halloran</em></h1>
+      <p class="hero-sub">Cybersecurity student at Xavier University — learning every day, building toward a future in cyber.</p>
+      <a href="#about" class="hero-cta">
+        Learn More
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-layout">
+      <div class="about-sidebar reveal">
+        <p class="section-label">Who I Am</p>
+        <h2 class="section-title">About<br>Me</h2>
+        <div class="divider"></div>
+        <span class="about-badge">📍 Xavier University</span><br>
+        <span class="about-badge" style="margin-top:0.6rem;">🎓 Freshman · Cybersecurity</span>
+      </div>
+
+      <div class="reveal" style="transition-delay:0.1s">
+        <div class="about-text">
+          <p>
+            Hey, I'm <strong>Jack Halloran</strong> — a freshman at Xavier University studying Cybersecurity. Before I even stepped foot on campus, I knew I wanted to pursue something in tech. The field just made sense to me: it's always evolving, always challenging, and it rewards curiosity.
+          </p>
+          <p>
+            When Xavier launched Cybersecurity as a brand-new major, it felt like a perfect fit. It checked both boxes — a passion for technology and a love of continuous learning. Every week brings new concepts, new threats to understand, and new skills to develop. That kind of constant growth is exactly what keeps me motivated.
+          </p>
+          <p>
+            Outside of the classroom, I'm someone who keeps things balanced. Whether it's getting lost in a good book, grinding at the gym, or unwinding with video games, I try to stay active in both mind and body.
+          </p>
+        </div>
+
+        <div class="goal-card reveal" style="transition-delay:0.2s">
+          <p class="goal-card-label">🎯 Current Goal</p>
+          <p>Working toward landing a role in the cybersecurity field after graduation. Every course, certification, and project is a step in that direction.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERESTS -->
+  <section id="interests">
+    <p class="section-label reveal">What I'm Into</p>
+    <h2 class="section-title reveal" style="transition-delay:0.05s">Interests &amp;<br>Hobbies</h2>
+    <div class="divider reveal" style="transition-delay:0.1s"></div>
+
+    <div class="interests-grid">
+
+      <div class="interest-card reveal" style="transition-delay:0.1s">
+        <span class="interest-icon">📖</span>
+        <p class="interest-name">Reading</p>
+        <p class="interest-desc">Books are a way to keep learning outside the classroom — from fiction to non-fiction.</p>
+      </div>
+
+      <div class="interest-card reveal" style="transition-delay:0.15s">
+        <span class="interest-icon">🏋️</span>
+        <p class="interest-name">Lifting</p>
+        <p class="interest-desc">Consistent training, progressive overload, and the discipline that comes with it.</p>
+      </div>
+
+      <div class="interest-card reveal" style="transition-delay:0.2s">
+        <span class="interest-icon">🚶</span>
+        <p class="interest-name">Walking</p>
+        <p class="interest-desc">A chance to clear my head, decompress, and appreciate the surroundings.</p>
+      </div>
+
+      <div class="interest-card reveal" style="transition-delay:0.25s">
+        <span class="interest-icon">🎮</span>
+        <p class="interest-name">Video Games</p>
+        <p class="interest-desc">Gaming sharpens problem-solving and strategic thinking — plus it's just fun.</p>
+      </div>
+
+      <div class="interest-card reveal" style="transition-delay:0.3s">
+        <span class="interest-icon">🔒</span>
+        <p class="interest-name">Cybersecurity</p>
+        <p class="interest-desc">Not just a major — a genuine interest in how systems can be protected and broken.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-name">Jack Halloran</span>
+    <span class="footer-note">Xavier University · Cybersecurity · Class of 2028</span>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
